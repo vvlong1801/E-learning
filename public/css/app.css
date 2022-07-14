@@ -10062,3 +10062,8 @@ button a {
   outline: none;
 }
 
+.img-course{
+  /* width: 300px; */
+  height: 300px;
+  box-sizing: border-box;
+}

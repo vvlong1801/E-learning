@@ -60,7 +60,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input['thumbnail'] = $request->file('thumbnail')->store('images');
+        $input['thumbnail'] = $request->file('thumbnail')->store('public/images');
         $input['user_id'] = Auth::id();
         $course = Course::create($input);
         \Session::flash('flash_message', 'A new course has been created!');
