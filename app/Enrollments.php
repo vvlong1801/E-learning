@@ -14,11 +14,11 @@ class Enrollments extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function course()
     {
-        return $this->belongsTo('App\Course');
+        return $this->belongsTo('App\Course','course_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use App\Course;
@@ -21,7 +22,7 @@ class CourseController extends Controller
     {
         if (Auth::check()) {
             $usercourse = UserCourse::where('user_id', '=', Auth::id())
-                                    ->get();
+                ->get();
             $courses = [];
             foreach ($usercourse as $row) {
                 $courses[] = $row->course;
@@ -60,14 +61,20 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input['thumbnail'] = $request->file('thumbnail')->store('public/images');
+        $input['thumbnail'] = str_replace('public/', '', $request->file('thumbnail')->store('public/images'));
         $input['user_id'] = Auth::id();
+        $input['category_id'] = 1;
         $course = Course::create($input);
         \Session::flash('flash_message', 'A new course has been created!');
         $author = User::find($course->user_id);
         return redirect(route('home'));
     }
 
+    public function filter(Category $category)
+    {
+        $courses = $category->courses;
+        return view('courses', ['courses' => $courses, 'categoryId' => $category->id]);
+    }
     /**
      * Display the specified resource.
      *
@@ -78,10 +85,10 @@ class CourseController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $text = UserCourse::where('user_id' , '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
-            $enroll = (isset($text))?$text->course_enrolled:'';
+            $text = UserCourse::where('user_id', '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
+            $enroll = (isset($text)) ? $text->course_enrolled : '';
             $comp = UserCourse::where('user_id', '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
-            $complete = (isset($comp) && $comp->course_completed == 1)?$comp->course_completed:false;
+            $complete = (isset($comp) && $comp->course_completed == 1) ? $comp->course_completed : false;
         } else {
             $enroll = false;
             $complete = false;
@@ -102,6 +109,12 @@ class CourseController extends Controller
         return view('courses.edit', compact('course', 'submitbuttontext'));
     }
 
+    /**
+     * user enroll course
+     *
+     * @param  \App\Course  $course
+     * @return \Illuminate\Http\Response
+     */
     public function enroll(Course $course)
     {
         if (Auth::guest()) {
@@ -122,8 +135,8 @@ class CourseController extends Controller
     {
         //detach record from user-course.
         UserCourse::where('user_id', '=', Auth::id())
-                    ->where('course_id', '=', $course->id)
-                    ->delete();
+            ->where('course_id', '=', $course->id)
+            ->delete();
         \Session::flash('flash_message', 'You have been unenrolled from the course!');
         return redirect(route('home'));
     }
@@ -131,8 +144,8 @@ class CourseController extends Controller
     public function complete(Course $course)
     {
         UserCourse::where('user_id', '=', Auth::id())
-                    ->where('course_id', '=', $course->id)
-                    ->update(['course_completed' => 1]);
+            ->where('course_id', '=', $course->id)
+            ->update(['course_completed' => 1]);
         \Session::flash('flash_message', 'Course marked as completed!');
         return redirect(route('course.show', [$course->id]));
     }
@@ -149,8 +162,7 @@ class CourseController extends Controller
         $input['thumbnail'] = $request->file('thumbnail')->store('images');
         $course->update($input);
         \Session::flash('flash_message', 'The course has been updated!');
-        return redirect(route('course.edit',[$course['id']]));
-
+        return redirect(route('course.edit', [$course['id']]));
     }
 
     /**

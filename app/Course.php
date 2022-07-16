@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'title', 'thumbnail', 'user_id', 'authorname', 'description'
+        'title', 'thumbnail', 'user_id', 'authorname', 'description', 'category_id'
     ];
 
     protected $table ='courses';
@@ -15,6 +15,16 @@ class Course extends Model
     public function users()
     {
         return $this->belongsToMany('App\User', 'user_course', 'course_id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
     }
 
     public function enrollments()

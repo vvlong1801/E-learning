@@ -11,6 +11,12 @@ use Auth;
 
 class EnrollmentController extends Controller
 {
+    public function getMyCourse(){
+        $user = Auth::user();
+        $myCourses = $user->courses;
+        dd($myCourses);
+    }
+
     public function approve(User $user, Course $course)
     {
         $usercourse = UserCourse::create(
@@ -41,9 +47,10 @@ class EnrollmentController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $courses = Course::where('user_id', '=', $user->id);
-        $courses = $courses->pluck('id')->all();
-        $enrollments = Enrollments::whereIn('course_id', $courses)->get();
+        $enrollments = $user->enrollements;
+        // $courses = Course::where('user_id', '=', $user->id);
+        // $courses = $courses->pluck('id')->all();
+        // $enrollments = Enrollments::whereIn('course_id', $courses)->get();
         return view('dashboard', compact('enrollments'));
     }
 }
