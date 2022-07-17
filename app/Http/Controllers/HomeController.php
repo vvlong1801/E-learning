@@ -34,4 +34,15 @@ class HomeController extends Controller
         }
         return view('courses', compact('courses'));
     }
+
+    public function search(Request $request)
+    {
+        $text = $request->get('course_search_box') ?? null;
+        if ($text === null) {
+            return redirect()->route('home');
+        } else {
+            $courses = Course::where('title', 'like', '%' . $text . '%')->get();
+            return view('courses', compact('courses'));
+        }
+    }
 }

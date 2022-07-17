@@ -33,10 +33,10 @@ class CourseController extends Controller
         }
         if ($courses->isEmpty()) {
             \Session::flash('course', 'Not enrolled to any courses');
-        } else {
-            foreach ($courses as $course) {
-                $course->author = User::find($course->user_id);
-            }
+        // } else {
+        //     foreach ($courses as $course) {
+        //         $course->author = User::find($course->user_id);
+        //     }
         }
         return view('courses', compact('courses'));
     }
@@ -148,6 +148,23 @@ class CourseController extends Controller
             ->update(['course_completed' => 1]);
         \Session::flash('flash_message', 'Course marked as completed!');
         return redirect(route('course.show', [$course->id]));
+    }
+
+    public function search(Request $request){
+        $text = $request->get('course_search_box')?? null;
+        if($text === null){
+            return redirect()->route('course');
+        }else{
+            $userCourses = Auth::user()->userCourse->filter(function($userCourse) use ($text){
+                $course = $userCourse->course;
+                return str_contains($course->title, $text) ? true : false;
+            });
+            $courses = $userCourses->map(function($userCourse) {
+                return $userCourse->course;
+            });
+            return view('courses', compact('courses'));
+        }
+        
     }
     /**
      * Update the specified resource in storage.

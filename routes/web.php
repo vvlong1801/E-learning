@@ -20,10 +20,11 @@ Auth::routes();
                 HOME
 =================================*/
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home/search', 'HomeController@search')->name('home.search');
 /* ================================
                 COURSE
 =================================*/
-Route::get('/course', 'CourseController@index')->name('course.index');
+Route::get('/course', 'CourseController@index')->name('course');
 
 Route::resource('/course', 'CourseController')->except('index', 'show')->middleware('auth');
 
@@ -36,6 +37,8 @@ Route::get('/course/{course}/unenroll', 'CourseController@unenroll')->name('cour
 Route::get('/course/{course}/complete', 'CourseController@complete')->name('course.complete');
 
 Route::get('/course/{course}', 'CourseController@show')->name('course.show');
+
+Route::post('/course/search', 'CourseController@search')->name('course.search');
 /* ================================
                 ACCOUNT
 =================================*/

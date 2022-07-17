@@ -1,3 +1,6 @@
+@php
+    $routeName = Route::currentRouteName();
+@endphp
 @section('header')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" id="navbar-logo">{{ Html::image('images/logo.png', 'LOGO', ['class' => 'logo']) }}</a>
@@ -9,27 +12,27 @@
             <ul class="navbar-nav">
                 @if (Auth::check() &&
                     (Auth::user()->role()->first()->name = 'Author'))
-                    <li class="nav-item mx-3">
+                    <li class="nav-item mx-3 {{str_contains($routeName, 'dashboard') ? 'header-active' : ''}}">
                         <a class="nav-link" href="{{ route('dashboard') }}">ダッシュボード</a>
                     </li>
                 @endif
-                <li class="nav-item mx-3">
+                <li class="nav-item mx-3 {{str_contains($routeName, 'home') ? 'header-active' : ''}}">
                     <a class="nav-link" href="{{ route('home') }}">ホーム</a>
                 </li>
                 @if (Auth::check() &&
                     Auth::user()->role()->first()->name == 'Student')
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="{{ route('course.index') }}">私のコース</a>
+                    <li class="nav-item mx-3 {{str_contains($routeName, 'course') ? 'header-active' : ''}}">
+                        <a class="nav-link" href="{{ route('course') }}">私のコース</a>
                     </li>
                 @endif
                 @if (Auth::check() &&
                     Auth::user()->role()->first()->name == 'Admin')
-                    <li class="nav-item mx-3">
+                    <li class="nav-item mx-3 {{str_contains($routeName, 'user') ? 'header-active' : ''}}">
                         <a class="nav-link" href="{{ route('user.index') }}">ユーザ</a>
                     </li>
                 @endif
                 @if (Auth::check())
-                    <li class="nav-item mx-3">
+                    <li class="nav-item mx-3 {{str_contains($routeName, 'user.account') ? 'header-active' : ''}}">
                         <a class="nav-link" href="{{ route('user.account', [Auth::id()]) }}">アカウント情報</a>
                     </li>
                 @endif

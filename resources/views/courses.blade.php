@@ -1,8 +1,10 @@
 @extends('layouts.index')
 @inject('category', 'App\Http\Controllers\CategoryController')
 @php
-    $categories = $category->index();
-    $categoryId = isset($categoryId)===true ? $categoryId : 0 ;
+$categories = $category->index();
+$categoryId = isset($categoryId) === true ? $categoryId : 0;
+$routeName = Route::currentRouteName();
+$routeSearch = str_contains($routeName, 'search') ? $routeName : $routeName.'.search'
 @endphp
 @section('content')
     @if (session('flash_message'))
@@ -12,10 +14,13 @@
             </div>
         </div>
     @endif
-    <form method="POST" style="text-align: center;" class="my-4">
+    {{-- search --}}
+    <form action="{{route($routeSearch)}}" method="POST" style="text-align: center;" class="my-4">
+        @csrf
         <input type="text" id="course_search_box" name="course_search_box" class="search-box" placeholder="欲しいコースのタイトルを入力" />
         <button id="search-button" type="submit" class="btn btn-primary">検索</button>
     </form>
+    {{-- ========== --}}
     <div class="container-fluid" id="coursescontent">
         <div class="row">
             <div class="col-md-4"></div>
@@ -28,32 +33,32 @@
                 @endif
             </div>
         </div>
-        
+
         <div class="row">
-            <div class="col-md-3">
-                <div class="row">
-                    <h1 class="my-4">カテゴリー</h1>
-                </div>
-                <div class="row mr-4" style="">
-                    <ul class="list-group w-100">
-                        <a href="{{route('course.index')}}">
-                            <li class="list-group-item {{ $categoryId===0 ? 'active' : '' }}">全コース</li>
-                        </a>
-                        @foreach ($categories as $category)
-                            <a class="list-group-item 
-                            {{ $categoryId === $category->id ? 'active' : '' }}"
-                                href="{{ route('course.filter', [$category->id]) }}">
-                                {{ $category->name }}
+            {{-- category --}}
+            @if (str_contains($routeName, 'home'))
+                <div class="col-md-3">
+                    <div class="row">
+                        <h1 class="my-4">カテゴリー</h1>
+                    </div>
+                    <div class="row mr-4" style="">
+                        <ul class="list-group w-100">
+                            <a href="{{ route('home') }}">
+                                <li class="list-group-item {{ $categoryId === 0 ? 'active' : '' }}">全コース</li>
                             </a>
-                        @endforeach
-                        {{-- <li class="list-group-item">ウェブ開発</li>
-                        <li class="list-group-item">ウェブデザイン</li>
-                        <li class="list-group-item">モバイルアプリ</li>
-                        <li class="list-group-item">インターネット</li>
-                        <li class="list-group-item">IOT</li> --}}
-                    </ul>
+                            @foreach ($categories as $category)
+                                <a class="list-group-item 
+                            {{ $categoryId === $category->id ? 'active' : '' }}"
+                                    href="{{ route('course.filter', [$category->id]) }}">
+                                    {{ $category->name }}
+                                </a>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
+
+            {{-- ========== --}}
             @if ($courses->isEmpty())
                 @if (session('course'))
                     <div class="card-body">
