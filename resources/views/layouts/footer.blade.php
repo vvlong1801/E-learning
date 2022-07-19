@@ -3,8 +3,7 @@
 
         <!--Copyright-->
         <div class="footer-text">
-            © 2018 Copyright:
-            <a href="https://wisdmlabs.com/"> Wisdmlabs.com </a>
+            <a href="#"> チーム２ </a>
         </div>
         <!--/.Copyright-->
 </footer>

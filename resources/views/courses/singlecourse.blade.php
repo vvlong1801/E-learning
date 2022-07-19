@@ -26,10 +26,10 @@
             </div>
 
             <div class="published">
-                <h6>Published on: {{ $course->created_at->toFormattedDateString() }}</h6>
+                <h6>作成日: {{ $course->created_at->toFormattedDateString() }}</h6>
             </div>
             <div class="author">
-                <h6 class="lead">Author: {{ $author->name }}</h6>
+                <h6 class="lead">作者: {{ $author->name }}</h6>
             </div>
             @if ($enroll == true && Auth::user()->role->first()->name == 'Student')
                 <div class="course-content">
@@ -41,14 +41,14 @@
                     @if ($complete == false)
                         <br></br>
                         <a href="{{ route('course.complete', [$course->id]) }}" type="button"
-                            class="btn btn-primary btn-lg">Mark as Complete</a>
+                            class="btn btn-primary btn-lg">完成</a>
                         <br></br>
                     @endif
                 </div>
             @else
                 @if ($complete == false)
                     <a href="{{ route('course.enroll', [$course->id]) }}" type="button"
-                        class="btn btn-primary btn-lg">Enroll</a>
+                        class="btn btn-primary btn-lg">参加</a>
                 @endif
             @endif
         </div>

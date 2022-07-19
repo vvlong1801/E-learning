@@ -11,19 +11,19 @@
 
 @if ($enrollments->isEmpty())
     <div class="card-body">
-        <h2 class="alert alert-info">No New Enrollments</h2>
+        <h2 class="alert alert-info">新規参加リクエストがない</h2>
     </div>
 @else
     <div class="card-body">
-        <h2 class="alert alert-info">All Enrollment Requests</h2>
+        <h2 class="alert alert-info">全てのコース参加リクエスト</h2>
     </div>
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Course</th>
-            <th scope="col">Actions</th>
+            <th scope="col">名前</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">コース</th>
+            <th scope="col">アクション</th>
         </tr>
         </thead>
         <tbody>
@@ -33,8 +33,8 @@
                     <td>{{ $enrollment->user->email }}</td>
                     <td>{{ $enrollment->course->title }}</td>
                     <td>
-                        <a class="btn btn-success" href = "{{route('enrollment.approve', [$enrollment->user_id, $enrollment->course_id])}}">Approve</a>
-                        <a class="btn btn-danger" href = "{{ route('enrollment.disapprove', [$enrollment->user_id, $enrollment->course_id]) }}">Disapprove</a>
+                        <a class="btn btn-success" href = "{{route('enrollment.approve', [$enrollment->user_id, $enrollment->course_id])}}">許可</a>
+                        <a class="btn btn-danger" href = "{{ route('enrollment.disapprove', [$enrollment->user_id, $enrollment->course_id]) }}">不承認</a>
                     </td>
                 </tr>
             @endforeach

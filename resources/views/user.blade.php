@@ -10,15 +10,15 @@
 {{-- <a href="{{ route('course.create') }}">{!! Form::button('Add New Course', ['class' => 'btn btn-secondary', 'id' => 'course_button']) !!}</a> --}}
 <a href="{{ route('user.create') }}" class="btn btn-secondary" id="course_button">Add New User</a>
 
-<h1 class="my-4">All Users</h1>
+<h1 class="my-4">全てのユーザー</h1>
 
 <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
+            <th scope="col">名前</th>
+            <th scope="col">メール</th>
+            <th scope="col">役割</th>
+            <th scope="col">アクション</th>
           </tr>
         </thead>
 
