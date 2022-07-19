@@ -4,7 +4,7 @@
 $categories = $category->index();
 $categoryId = isset($categoryId) === true ? $categoryId : 0;
 $routeName = Route::currentRouteName();
-$routeSearch = str_contains($routeName, 'search') ? $routeName : $routeName.'.search'
+$routeSearch = str_contains($routeName, 'search') ? $routeName : explode('.', $routeName)[0] . '.search';
 @endphp
 @section('content')
     @if (session('flash_message'))
@@ -15,7 +15,7 @@ $routeSearch = str_contains($routeName, 'search') ? $routeName : $routeName.'.se
         </div>
     @endif
     {{-- search --}}
-    <form action="{{route($routeSearch)}}" method="POST" style="text-align: center;" class="my-4">
+    <form action="{{ route($routeSearch) }}" method="POST" style="text-align: center;" class="my-4">
         @csrf
         <input type="text" id="course_search_box" name="course_search_box" class="search-box" placeholder="欲しいコースのタイトルを入力" />
         <button id="search-button" type="submit" class="btn btn-primary">検索</button>
@@ -49,7 +49,7 @@ $routeSearch = str_contains($routeName, 'search') ? $routeName : $routeName.'.se
                             @foreach ($categories as $category)
                                 <a class="list-group-item 
                             {{ $categoryId === $category->id ? 'active' : '' }}"
-                                    href="{{ route('course.filter', [$category->id]) }}">
+                                    href="{{ route('home.filter', [$category->id]) }}">
                                     {{ $category->name }}
                                 </a>
                             @endforeach

@@ -63,7 +63,6 @@ class CourseController extends Controller
         $input = $request->all();
         $input['thumbnail'] = str_replace('public/', '', $request->file('thumbnail')->store('public/images'));
         $input['user_id'] = Auth::id();
-        $input['category_id'] = 1;
         $course = Course::create($input);
         \Session::flash('flash_message', 'A new course has been created!');
         $author = User::find($course->user_id);

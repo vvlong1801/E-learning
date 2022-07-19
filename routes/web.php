@@ -28,13 +28,17 @@ Route::get('/course', 'CourseController@index')->name('course');
 
 Route::resource('/course', 'CourseController')->except('index', 'show')->middleware('auth');
 
-Route::get('/course/filter/{category}','CourseController@filter')->name('course.filter');
+Route::get('/course/filter/{category}','CourseController@filter')->name('home.filter');
 
 Route::get('/course/{course}/enroll', 'CourseController@enroll')->name('course.enroll');
 
 Route::get('/course/{course}/unenroll', 'CourseController@unenroll')->name('course.unenroll');
 
 Route::get('/course/{course}/complete', 'CourseController@complete')->name('course.complete');
+
+Route::get('/course/test', function () {
+    return view('courses.test');
+})->name('course.test');
 
 Route::get('/course/{course}', 'CourseController@show')->name('course.show');
 
