@@ -16,6 +16,7 @@ class CoursesTableSeeder extends Seeder
         //         'title' => 'Intro to CS',
         //         'thumbnail' => "/images/spanish.jpeg",
         //         'user_id' => 1,
+        //         'category_id' => 1,
         //         'description' => 'This is Intro to CS.'
         //     ]
         // );
