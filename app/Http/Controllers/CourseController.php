@@ -61,7 +61,7 @@ class CourseController extends Controller
         $input['thumbnail'] = str_replace('public/', '', $request->file('thumbnail')->store('public/images'));
         $input['user_id'] = Auth::id();
         $course = Course::create($input);
-        \Session::flash('flash_message', 'A new course has been created!');
+        \Session::flash('flash_message', '新しいコースが作成されました！');
         $author = User::find($course->user_id);
         return redirect(route('home'));
     }
@@ -125,7 +125,7 @@ class CourseController extends Controller
         ]);
         
         $enrollment->save();
-        \Session::flash('flash_message', 'Your request has been submitted, You will be able to see the course content after admin approves your request!');
+        \Session::flash('flash_message', 'リクエストが送信されました。管理者がリクエストを承認すると、コースの内容が表示されます!');
         return redirect(route('home'));
     }
 
@@ -135,7 +135,7 @@ class CourseController extends Controller
         UserCourse::where('user_id', '=', Auth::id())
             ->where('course_id', '=', $course->id)
             ->delete();
-        \Session::flash('flash_message', 'You have been unenrolled from the course!');
+        \Session::flash('flash_message', 'コースから登録解除されました!');
         return redirect(route('home'));
     }
 
@@ -144,7 +144,7 @@ class CourseController extends Controller
         UserCourse::where('user_id', '=', Auth::id())
             ->where('course_id', '=', $course->id)
             ->update(['course_completed' => 1]);
-        \Session::flash('flash_message', 'Course marked as completed!');
+        \Session::flash('flash_message', '完了としてマークされたコース!');
         return redirect(route('course.show', [$course->id]));
     }
 
@@ -176,7 +176,7 @@ class CourseController extends Controller
         $input = $request->all();
         $input['thumbnail'] = $request->file('thumbnail')->store('images');
         $course->update($input);
-        \Session::flash('flash_message', 'The course has been updated!');
+        \Session::flash('flash_message', 'コースが更新されました!');
         return redirect(route('course.edit', [$course['id']]));
     }
 
@@ -190,7 +190,7 @@ class CourseController extends Controller
     {
         $course = Course::find($r);
         $course->delete();
-        \Session::flash('flash_message', 'Course Deleted!');
+        \Session::flash('flash_message', 'コースが削除されました!');
         // dd($course);
         return redirect(route('course'));
     }
