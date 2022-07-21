@@ -21,4 +21,8 @@ class Enrollments extends Model
     {
         return $this->belongsTo('App\Course','course_id');
     }
+
+    protected $primaryKey  = ['user_id','course_id'];
+    
+    public $incrementing = false;
 }
