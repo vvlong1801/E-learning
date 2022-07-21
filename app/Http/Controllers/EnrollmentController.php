@@ -31,7 +31,7 @@ class EnrollmentController extends Controller
         Enrollments::where('user_id', '=', $user->id)
                     ->where('course_id', '=', $course->id)
                     ->delete();
-        \Session::flash('flash_message', 'The enrollment request has been approved');
+        \Session::flash('flash_message', '登録リクエストが承認されました');
         return redirect(route('dashboard'));
     }
 
@@ -40,7 +40,7 @@ class EnrollmentController extends Controller
         $enrollment = Enrollments::where('user_id', '=', $user->id)
                     ->where('course_id', '=', $course->id)
                     ->delete();
-        \Session::flash('flash_message', 'The enrollment request has been disapproved!');
+        \Session::flash('flash_message', '登録リクエストは不承認になりました!');
         return redirect(route('dashboard'));
     }
 
