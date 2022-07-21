@@ -116,14 +116,14 @@ class CourseController extends Controller
         if (Auth::guest()) {
             return redirect(route('login'));
         }
-        dd('aaaaaa');
+        
         //add enroll request to admin dashboard
         $enrollment = Enrollments::create([
             'user_id' => Auth::id(),
             'course_id' => $course->id,
             'status' => 0,
         ]);
-        
+        dd('aaaaaa');
         $enrollment->save();
         \Session::flash('flash_message', 'リクエストが送信されました。管理者がリクエストを承認すると、コースの内容が表示されます!');
         return redirect(route('home'));
