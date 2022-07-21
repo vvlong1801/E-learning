@@ -36,17 +36,24 @@
                         <p class="lead">{{ $course->description }}</p>
                     </div>
                     <div class="course-button">
-                        <a href="{{ route('course.unenroll', [$course->id]) }}" type="button"
-                            class="btn btn-primary btn-lg">Unenroll</a>
-                        @if ($complete == false)
-                            <a href="{{ route('course.test') }}" type="button"
-                                class="btn btn-primary btn-lg">テスト</a>
-                            <br />
-                            <a href="{{ route('course.complete', [$course->id]) }}" type="button"
-                                class="btn btn-primary btn-lg">完成</a>
-                            <br />
-                            <a href="{{route('course')}}" class="btn btn-primary mt-5">戻る</a>
-                        @endif
+                        <div class="row">
+                            <div class="col-md-3">
+                            <a href="{{ route('course.unenroll', [$course->id]) }}" type="button"
+                                class="btn btn-primary btn-lg">登録解除</a>
+                            </div>
+                            @if ($complete == false)
+                                <div class="col-md-3">
+                                <a href="{{ route('course.test') }}" type="button"
+                                    class="btn btn-primary btn-lg">テスト</a>
+                                </div>
+                                <div class="col-md-3">
+                                <a href="{{ route('course.complete', [$course->id]) }}" type="button"
+                                    class="btn btn-primary btn-lg">完成</a>
+                                </div>
+                                <br />
+                                <!-- <a href="{{route('course')}}" class="btn btn-primary mt-5">戻る</a> -->
+                            @endif
+                        </div>
                     </div>
                 @else
                     @if ($complete == false)
