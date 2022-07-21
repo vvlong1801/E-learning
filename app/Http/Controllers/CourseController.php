@@ -122,6 +122,7 @@ class CourseController extends Controller
             'course_id' => $course->id,
             'status' => 0,
         ]);
+        dd($enrollment);
         $enrollment->save();
         \Session::flash('flash_message', 'Your request has been submitted, You will be able to see the course content after admin approves your request!');
         return redirect(route('home'));

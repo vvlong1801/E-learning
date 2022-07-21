@@ -37,15 +37,14 @@
                 </div>
                 <div class="course-button">
                     <a href="{{ route('course.unenroll', [$course->id]) }}" type="button"
-                        class="btn btn-primary btn-lg">Unenroll</a>
+                        class="btn btn-primary btn-lg mr-2">Unenroll</a>
                     @if ($complete == false)
-                        <a href="{{ route('course.test') }}" type="button"
-                            class="btn btn-primary btn-lg">テスト</a>
-                        <br />
+                        <a href="{{ route('course.test', [$course->id]) }}" type="button"
+                            class="btn btn-primary btn-lg mr-2">テスト</a>
                         <a href="{{ route('course.complete', [$course->id]) }}" type="button"
                             class="btn btn-primary btn-lg">完成</a>
                         <br />
-                        <a href="{{route('course')}}" class="btn btn-primary mt-5">戻る</a>
+                        <a href="{{ route('course') }}" class="btn btn-primary mt-5">戻る</a>
                     @endif
                 </div>
             @else
