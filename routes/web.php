@@ -36,8 +36,8 @@ Route::get('/course/{course}/unenroll', 'CourseController@unenroll')->name('cour
 
 Route::get('/course/{course}/complete', 'CourseController@complete')->name('course.complete');
 
-Route::get('/course/test', function () {
-    return view('courses.test');
+Route::get('/course/test/{id}', function ($id) {
+    return view('courses.test',compact('id'));
 })->name('course.test');
 
 Route::get('/course/{course}', 'CourseController@show')->name('course.show');
