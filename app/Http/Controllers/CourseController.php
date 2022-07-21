@@ -57,6 +57,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        // dd($request->file('thumbnail')->store('public/images'));
         $input['thumbnail'] = str_replace('public/', '', $request->file('thumbnail')->store('public/images'));
         $input['user_id'] = Auth::id();
         $course = Course::create($input);
