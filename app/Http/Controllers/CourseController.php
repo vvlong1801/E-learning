@@ -33,10 +33,6 @@ class CourseController extends Controller
         }
         if ($courses->isEmpty()) {
             \Session::flash('course', 'Not enrolled to any courses');
-        // } else {
-        //     foreach ($courses as $course) {
-        //         $course->author = User::find($course->user_id);
-        //     }
         }
         return view('courses', compact('courses'));
     }
@@ -61,6 +57,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        dd($request->file('thumbnail')->store('public/images'));
         $input['thumbnail'] = str_replace('public/', '', $request->file('thumbnail')->store('public/images'));
         $input['user_id'] = Auth::id();
         $course = Course::create($input);
@@ -193,6 +190,6 @@ class CourseController extends Controller
         $course->delete();
         \Session::flash('flash_message', 'Course Deleted!');
         // dd($course);
-        return redirect(route('course.index'));
+        return redirect(route('course'));
     }
 }
