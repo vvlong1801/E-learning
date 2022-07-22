@@ -69,6 +69,13 @@
             </div>
             <div class="col-md-6">
                 <div>
+                    <b>ビデオリンク</b>
+                </div>
+                <div>
+                    <a href="https://www.youtube.com/watch?v=OK_JCtrrv-c">リンク</a>
+                </div>
+                <br/>
+                <div>
                     <b>コースの紹介</b>
                 </div>
                 PHPはラスマス・ラードフが個人的にCで開発していたCGIプログラムである
